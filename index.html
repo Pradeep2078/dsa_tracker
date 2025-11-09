@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Practice Sheet - 600+ Problems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-card .label {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .filters {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        select {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .export-btn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            padding: 20px 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8f9fa;
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tbody tr {
+            transition: all 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .platform {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            background: #e7f3ff;
+            color: #004085;
+        }
+
+        .link-btn {
+            padding: 8px 15px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .link-btn:hover {
+            background: #5568d3;
+            transform: translateX(3px);
+        }
+
+        .completed {
+            background: #d4edda !important;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            td, th {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 DSA Practice Sheet</h1>
+            <p>Master Data Structures & Algorithms with 600+ Curated Problems</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number" id="totalProblems">600</div>
+                <div class="label">Total Problems</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="completedCount">0</div>
+                <div class="label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="progressPercent">0%</div>
+                <div class="label">Progress</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search problems...">
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <select id="topicFilter">
+                <option value="All">All Topics</option>
+                <option value="Arrays">Arrays</option>
+                <option value="Strings">Strings</option>
+                <option value="Linked Lists">Linked Lists</option>
+                <option value="Stacks">Stacks & Queues</option>
+                <option value="Trees">Trees</option>
+                <option value="Graphs">Graphs</option>
+                <option value="Dynamic Programming">Dynamic Programming</option>
+                <option value="Greedy">Greedy</option>
+                <option value="Backtracking">Backtracking</option>
+                <option value="Binary Search">Binary Search</option>
+                <option value="Heaps">Heaps</option>
+                <option value="Sorting">Sorting</option>
+                <option value="Bit Manipulation">Bit Manipulation</option>
+            </select>
+
+            <select id="difficultyFilter">
+                <option value="All">All Difficulties</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+
+            <button class="export-btn" onclick="exportToCSV()">📥 Export CSV</button>
+        </div>
+
+        <div class="table-container">
+            <table id="problemsTable">
+                <thead>
+                    <tr>
+                        <th>✓</th>
+                        <th>#</th>
+                        <th>Problem Name</th>
+                        <th>Topic</th>
+                        <th>Difficulty</th>
+                        <th>Platform</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+            <div id="noResults" class="no-results" style="display: none;">
+                No problems found matching your filters 😔
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const problems = [
+            // Arrays (60 problems)
+            { id: 1, name: "Two Sum", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/two-sum/" },
+            { id: 2, name: "Best Time to Buy and Sell Stock", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+            { id: 3, name: "Contains Duplicate", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/contains-duplicate/" },
+            { id: 4, name: "Product of Array Except Self", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/product-of-array-except-self/" },
+            { id: 5, name: "Maximum Subarray", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-subarray/" },
+            { id: 6, name: "Maximum Product Subarray", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-product-subarray/" },
+            { id: 7, name: "Find Minimum in Rotated Sorted Array", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" },
+            { id: 8, name: "Search in Rotated Sorted Array", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/search-in-rotated-sorted-array/" },
+            { id: 9, name: "3Sum", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/3sum/" },
+            { id: 10, name: "Container With Most Water", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/container-with-most-water/" },
+            { id: 11, name: "Trapping Rain Water", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/trapping-rain-water/" },
+            { id: 12, name: "Median of Two Sorted Arrays", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/median-of-two-sorted-arrays/" },
+            { id: 13, name: "Move Zeroes", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/move-zeroes/" },
+            { id: 14, name: "Remove Duplicates from Sorted Array", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/" },
+            { id: 15, name: "Rotate Array", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/rotate-array/" },
+            { id: 16, name: "Sort Colors", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-colors/" },
+            { id: 17, name: "Merge Intervals", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/merge-intervals/" },
+            { id: 18, name: "Insert Interval", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/insert-interval/" },
+            { id: 19, name: "Next Permutation", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/next-permutation/" },
+            { id: 20, name: "Jump Game", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game/" },
+            { id: 21, name: "Kadane's Algorithm", topic: "Arrays", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/kadanes-algorithm/" },
+            { id: 22, name: "Subarray Sum Equals K", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/subarray-sum-equals-k/" },
+            { id: 23, name: "Majority Element", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/majority-element/" },
+            { id: 24, name: "Majority Element II", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/majority-element-ii/" },
+            { id: 25, name: "Find Peak Element", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-peak-element/" },
+            { id: 26, name: "4Sum", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/4sum/" },
+            { id: 27, name: "First Missing Positive", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/first-missing-positive/" },
+            { id: 28, name: "Longest Consecutive Sequence", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-consecutive-sequence/" },
+            { id: 29, name: "Spiral Matrix", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/spiral-matrix/" },
+            { id: 30, name: "Rotate Image", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/rotate-image/" },
+            { id: 31, name: "Set Matrix Zeroes", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/set-matrix-zeroes/" },
+            { id: 32, name: "Pascal's Triangle", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/pascals-triangle/" },
+            { id: 33, name: "Pascal's Triangle II", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/pascals-triangle-ii/" },
+            { id: 34, name: "Missing Number", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/missing-number/" },
+            { id: 35, name: "Find All Duplicates in Array", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-all-duplicates-in-an-array/" },
+            { id: 36, name: "Find All Numbers Disappeared", topic: "Arrays", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" },
+            { id: 37, name: "Maximum Gap", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-gap/" },
+            { id: 38, name: "Largest Rectangle in Histogram", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/largest-rectangle-in-histogram/" },
+            { id: 39, name: "Sliding Window Maximum", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/sliding-window-maximum/" },
+            { id: 40, name: "Count Inversions", topic: "Arrays", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/inversion-of-array/" },
+            { id: 41, name: "Minimum Size Subarray Sum", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-size-subarray-sum/" },
+            { id: 42, name: "Max Consecutive Ones III", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/max-consecutive-ones-iii/" },
+            { id: 43, name: "Fruit Into Baskets", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/fruit-into-baskets/" },
+            { id: 44, name: "Longest Subarray of 1s", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/" },
+            { id: 45, name: "Pairs with Given Sum", topic: "Arrays", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/count-pairs-with-given-sum/" },
+            { id: 46, name: "Chocolate Distribution", topic: "Arrays", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/chocolate-distribution-problem/" },
+            { id: 47, name: "Smallest Subarray with Sum Greater", topic: "Arrays", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/smallest-subarray-with-sum-greater-than-x/" },
+            { id: 48, name: "Rearrange Array Alternately", topic: "Arrays", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/rearrange-array-alternately/" },
+            { id: 49, name: "Stock Buy and Sell II", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" },
+            { id: 50, name: "Stock Buy and Sell III", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" },
+            { id: 51, name: "Stock Buy and Sell IV", topic: "Arrays", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/" },
+            { id: 52, name: "Gas Station", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/gas-station/" },
+            { id: 53, name: "Jump Game II", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game-ii/" },
+            { id: 54, name: "Partition Array for Max Sum", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-array-for-maximum-sum/" },
+            { id: 55, name: "Longest Mountain in Array", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-mountain-in-array/" },
+            { id: 56, name: "Maximum Points from Cards", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/" },
+            { id: 57, name: "Valid Triangle Number", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/valid-triangle-number/" },
+            { id: 58, name: "Partition Labels", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-labels/" },
+            { id: 59, name: "Wiggle Sort II", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/wiggle-sort-ii/" },
+            { id: 60, name: "Range Sum Query 2D", topic: "Arrays", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/range-sum-query-2d-immutable/" },
+
+            // Strings (60 problems)
+            { id: 61, name: "Reverse String", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-string/" },
+            { id: 62, name: "Valid Anagram", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-anagram/" },
+            { id: 63, name: "Valid Palindrome", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-palindrome/" },
+            { id: 64, name: "Longest Substring Without Repeating", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+            { id: 65, name: "Longest Repeating Character Replacement", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-repeating-character-replacement/" },
+            { id: 66, name: "Minimum Window Substring", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-window-substring/" },
+            { id: 67, name: "Group Anagrams", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/group-anagrams/" },
+            { id: 68, name: "Valid Parentheses", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-parentheses/" },
+            { id: 69, name: "Longest Palindromic Substring", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-palindromic-substring/" },
+            { id: 70, name: "Palindromic Substrings", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/palindromic-substrings/" },
+            { id: 71, name: "Encode and Decode Strings", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/encode-and-decode-strings/" },
+            { id: 72, name: "String to Integer (atoi)", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/string-to-integer-atoi/" },
+            { id: 73, name: "Implement strStr()", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" },
+            { id: 74, name: "Longest Common Prefix", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/longest-common-prefix/" },
+            { id: 75, name: "Letter Combinations of Phone Number", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/" },
+            { id: 76, name: "Generate Parentheses", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/generate-parentheses/" },
+            { id: 77, name: "Simplify Path", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/simplify-path/" },
+            { id: 78, name: "Text Justification", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/text-justification/" },
+            { id: 79, name: "Edit Distance", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/edit-distance/" },
+            { id: 80, name: "Distinct Subsequences", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/distinct-subsequences/" },
+            { id: 81, name: "Word Break", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/word-break/" },
+            { id: 82, name: "Word Break II", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/word-break-ii/" },
+            { id: 83, name: "Isomorphic Strings", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/isomorphic-strings/" },
+            { id: 84, name: "Word Pattern", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/word-pattern/" },
+            { id: 85, name: "Count and Say", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-and-say/" },
+            { id: 86, name: "ZigZag Conversion", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/zigzag-conversion/" },
+            { id: 87, name: "Multiply Strings", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/multiply-strings/" },
+            { id: 88, name: "Compare Version Numbers", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/compare-version-numbers/" },
+            { id: 89, name: "Reverse Words in String", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-words-in-a-string/" },
+            { id: 90, name: "Integer to Roman", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/integer-to-roman/" },
+            { id: 91, name: "Roman to Integer", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/roman-to-integer/" },
+            { id: 92, name: "Rabin Karp Algorithm", topic: "Strings", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/rabin-karp-algorithm/" },
+            { id: 93, name: "KMP Algorithm", topic: "Strings", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/kmp-algorithm/" },
+            { id: 94, name: "Z Algorithm", topic: "Strings", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/z-algorithm/" },
+            { id: 95, name: "Check Rotation", topic: "Strings", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/check-if-strings-are-rotations/" },
+            { id: 96, name: "Remove Consecutive Characters", topic: "Strings", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/consecutive-characters/" },
+            { id: 97, name: "Longest Palindrome", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/longest-palindrome/" },
+            { id: 98, name: "Decode Ways", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/decode-ways/" },
+            { id: 99, name: "Decode Ways II", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/decode-ways-ii/" },
+            { id: 100, name: "Wildcard Matching", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/wildcard-matching/" },
+            { id: 101, name: "Regular Expression Matching", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/regular-expression-matching/" },
+            { id: 102, name: "Longest Valid Parentheses", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/longest-valid-parentheses/" },
+            { id: 103, name: "Interleaving String", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/interleaving-string/" },
+            { id: 104, name: "Scramble String", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/scramble-string/" },
+            { id: 105, name: "Minimum Window Subsequence", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-window-subsequence/" },
+            { id: 106, name: "Repeated String Match", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/repeated-string-match/" },
+            { id: 107, name: "Shortest Palindrome", topic: "Strings", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/shortest-palindrome/" },
+            { id: 108, name: "Add Binary", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/add-binary/" },
+            { id: 109, name: "Reverse String II", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-string-ii/" },
+            { id: 110, name: "Reverse Words III", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-words-in-a-string-iii/" },
+            { id: 111, name: "Remove All Adjacent Duplicates", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/" },
+            { id: 112, name: "Backspace String Compare", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/backspace-string-compare/" },
+            { id: 113, name: "Longest Uncommon Subsequence", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/longest-uncommon-subsequence-i/" },
+            { id: 114, name: "Student Attendance Record I", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/student-attendance-record-i/" },
+            { id: 115, name: "Detect Capital", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/detect-capital/" },
+            { id: 116, name: "Most Common Word", topic: "Strings", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/most-common-word/" },
+            { id: 117, name: "Reorder Data in Log Files", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reorder-data-in-log-files/" },
+            { id: 118, name: "String Compression", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/string-compression/" },
+            { id: 119, name: "Custom Sort String", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/custom-sort-string/" },
+            { id: 120, name: "Shortest Way to Form String", topic: "Strings", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/shortest-way-to-form-string/" },
+
+            // Linked Lists (50 problems)
+            { id: 121, name: "Reverse Linked List", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-linked-list/" },
+            { id: 122, name: "Linked List Cycle", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/linked-list-cycle/" },
+            { id: 123, name: "Merge Two Sorted Lists", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/merge-two-sorted-lists/" },
+            { id: 124, name: "Remove Nth Node From End", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/" },
+            { id: 125, name: "Reorder List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reorder-list/" },
+            { id: 126, name: "Add Two Numbers", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/add-two-numbers/" },
+            { id: 127, name: "Linked List Cycle II", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/linked-list-cycle-ii/" },
+            { id: 128, name: "Copy List with Random Pointer", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/copy-list-with-random-pointer/" },
+            { id: 129, name: "Merge K Sorted Lists", topic: "Linked Lists", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/merge-k-sorted-lists/" },
+            { id: 130, name: "Reverse Nodes in K-Group", topic: "Linked Lists", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-nodes-in-k-group/" },
+            { id: 131, name: "Middle of Linked List", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/middle-of-the-linked-list/" },
+            { id: 132, name: "Palindrome Linked List", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/palindrome-linked-list/" },
+            { id: 133, name: "Remove Duplicates from Sorted List", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/remove-duplicates-from-sorted-list/" },
+            { id: 134, name: "Remove Duplicates II", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/" },
+            { id: 135, name: "Intersection of Two Lists", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/intersection-of-two-linked-lists/" },
+            { id: 136, name: "Rotate List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/rotate-list/" },
+            { id: 137, name: "Swap Nodes in Pairs", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/swap-nodes-in-pairs/" },
+            { id: 138, name: "Odd Even Linked List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/odd-even-linked-list/" },
+            { id: 139, name: "Partition List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-list/" },
+            { id: 140, name: "Sort List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-list/" },
+            { id: 141, name: "Insertion Sort List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/insertion-sort-list/" },
+            { id: 142, name: "Flatten Multilevel Doubly List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/" },
+            { id: 143, name: "Delete Node in Linked List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/delete-node-in-a-linked-list/" },
+            { id: 144, name: "Remove Linked List Elements", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/remove-linked-list-elements/" },
+            { id: 145, name: "Convert Binary Number in Linked List", topic: "Linked Lists", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/" },
+            { id: 146, name: "Design Linked List", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/design-linked-list/" },
+            { id: 147, name: "Split Linked List in Parts", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/split-linked-list-in-parts/" },
+            { id: 148, name: "Add Two Numbers II", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/add-two-numbers-ii/" },
+            { id: 149, name: "Next Greater Node", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/next-greater-node-in-linked-list/" },
+            { id: 150, name: "Reverse Linked List II", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-linked-list-ii/" },
+            { id: 151, name: "Swap Nodes in LL", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/swapping-nodes-in-a-linked-list/" },
+            { id: 152, name: "Delete Middle Node", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/" },
+            { id: 153, name: "Maximum Twin Sum", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/" },
+            { id: 154, name: "Merge In Between Linked Lists", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/merge-in-between-linked-lists/" },
+            { id: 155, name: "Remove Zero Sum Consecutive Nodes", topic: "Linked Lists", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/" },
+            { id: 156, name: "Find Loop Start", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/find-the-first-node-of-loop-in-linked-list/" },
+            { id: 157, name: "Clone LL with Next and Random", topic: "Linked Lists", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/clone-a-linked-list-with-next-and-random-pointer/" },
+            { id: 158, name: "Flattening a Linked List", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/flattening-a-linked-list/" },
+            { id: 159, name: "Multiply Two LL", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/multiply-two-linked-lists/" },
+            { id: 160, name: "Pairwise Swap", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/pairwise-swap-elements-of-a-linked-list-by-swapping-data/" },
+            { id: 161, name: "Add 1 to Number", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/" },
+            { id: 162, name: "Check If Circular", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/circular-linked-list/" },
+            { id: 163, name: "Delete Without Head", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/delete-without-head-pointer/" },
+            { id: 164, name: "Nth Node from End", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/" },
+            { id: 165, name: "Segregate Even Odd", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list/" },
+            { id: 166, name: "Merge Sort for LL", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/sort-a-linked-list/" },
+            { id: 167, name: "Quick Sort for LL", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/quick-sort-on-linked-list/" },
+            { id: 168, name: "Reverse LL in Groups", topic: "Linked Lists", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/reverse-a-linked-list-in-groups-of-given-size/" },
+            { id: 169, name: "Delete Keys in DLL", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/delete-nodes-having-greater-value-on-right/" },
+            { id: 170, name: "Doubly LL Insertion", topic: "Linked Lists", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/doubly-linked-list-insertion-at-given-position/" },
+
+            // Stacks & Queues (50 problems)
+            { id: 171, name: "Valid Parentheses", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-parentheses/" },
+            { id: 172, name: "Min Stack", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/min-stack/" },
+            { id: 173, name: "Evaluate Reverse Polish Notation", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/evaluate-reverse-polish-notation/" },
+            { id: 174, name: "Daily Temperatures", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/daily-temperatures/" },
+            { id: 175, name: "Next Greater Element I", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/next-greater-element-i/" },
+            { id: 176, name: "Next Greater Element II", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/next-greater-element-ii/" },
+            { id: 177, name: "Largest Rectangle in Histogram", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/largest-rectangle-in-histogram/" },
+            { id: 178, name: "Maximal Rectangle", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximal-rectangle/" },
+            { id: 179, name: "Trapping Rain Water", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/trapping-rain-water/" },
+            { id: 180, name: "Basic Calculator", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/basic-calculator/" },
+            { id: 181, name: "Basic Calculator II", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/basic-calculator-ii/" },
+            { id: 182, name: "Decode String", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/decode-string/" },
+            { id: 183, name: "Remove K Digits", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-k-digits/" },
+            { id: 184, name: "Remove Duplicate Letters", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-duplicate-letters/" },
+            { id: 185, name: "Simplify Path", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/simplify-path/" },
+            { id: 186, name: "Implement Queue using Stacks", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/implement-queue-using-stacks/" },
+            { id: 187, name: "Implement Stack using Queues", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/implement-stack-using-queues/" },
+            { id: 188, name: "Number of Recent Calls", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-recent-calls/" },
+            { id: 189, name: "Design Circular Queue", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/design-circular-queue/" },
+            { id: 190, name: "Design Circular Deque", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/design-circular-deque/" },
+            { id: 191, name: "Sliding Window Maximum", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/sliding-window-maximum/" },
+            { id: 192, name: "Rotting Oranges", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/rotting-oranges/" },
+            { id: 193, name: "01 Matrix", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/01-matrix/" },
+            { id: 194, name: "Walls and Gates", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/walls-and-gates/" },
+            { id: 195, name: "Asteroid Collision", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/asteroid-collision/" },
+            { id: 196, name: "Stock Span Problem", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/online-stock-span/" },
+            { id: 197, name: "Sum of Subarray Minimums", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sum-of-subarray-minimums/" },
+            { id: 198, name: "Score of Parentheses", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/score-of-parentheses/" },
+            { id: 199, name: "Minimum Add to Make Valid", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/" },
+            { id: 200, name: "Valid Parenthesis String", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/valid-parenthesis-string/" },
+            { id: 201, name: "Longest Valid Parentheses", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/longest-valid-parentheses/" },
+            { id: 202, name: "Remove Outermost Parentheses", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/remove-outermost-parentheses/" },
+            { id: 203, name: "Backspace String Compare", topic: "Stacks", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/backspace-string-compare/" },
+            { id: 204, name: "Build Array With Stack", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/build-an-array-with-stack-operations/" },
+            { id: 205, name: "Car Fleet", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/car-fleet/" },
+            { id: 206, name: "Car Fleet II", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/car-fleet-ii/" },
+            { id: 207, name: "Maximum Frequency Stack", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-frequency-stack/" },
+            { id: 208, name: "LRU Cache", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/lru-cache/" },
+            { id: 209, name: "LFU Cache", topic: "Stacks", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/lfu-cache/" },
+            { id: 210, name: "Find Most Competitive", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-the-most-competitive-subsequence/" },
+            { id: 211, name: "132 Pattern", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/132-pattern/" },
+            { id: 212, name: "Exclusive Time of Functions", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/exclusive-time-of-functions/" },
+            { id: 213, name: "Flatten Nested List Iterator", topic: "Stacks", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/flatten-nested-list-iterator/" },
+            { id: 214, name: "Nearest Smaller Element", topic: "Stacks", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/smallest-number-on-left/" },
+            { id: 215, name: "Get Min at Pop", topic: "Stacks", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/get-minimum-element-from-stack/" },
+            { id: 216, name: "The Celebrity Problem", topic: "Stacks", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/the-celebrity-problem/" },
+            { id: 217, name: "Parenthesis Checker", topic: "Stacks", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/parenthesis-checker/" },
+            { id: 218, name: "Reverse Stack", topic: "Stacks", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/reverse-a-stack/" },
+            { id: 219, name: "Sort Stack", topic: "Stacks", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/sort-a-stack/" },
+            { id: 220, name: "Queue Reversal", topic: "Stacks", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/queue-reversal/" },
+
+            // Trees (70 problems)
+            { id: 221, name: "Maximum Depth of Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+            { id: 222, name: "Same Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/same-tree/" },
+            { id: 223, name: "Invert Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/invert-binary-tree/" },
+            { id: 224, name: "Binary Tree Level Order", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-level-order-traversal/" },
+            { id: 225, name: "Serialize and Deserialize", topic: "Trees", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/" },
+            { id: 226, name: "Subtree of Another Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/subtree-of-another-tree/" },
+            { id: 227, name: "Construct from Preorder Inorder", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" },
+            { id: 228, name: "Validate BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/validate-binary-search-tree/" },
+            { id: 229, name: "Kth Smallest in BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/" },
+            { id: 230, name: "Lowest Common Ancestor BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
+            { id: 231, name: "Binary Tree Right Side View", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-right-side-view/" },
+            { id: 232, name: "Count Good Nodes", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-good-nodes-in-binary-tree/" },
+            { id: 233, name: "Binary Tree Max Path Sum", topic: "Trees", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-maximum-path-sum/" },
+            { id: 234, name: "Symmetric Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/symmetric-tree/" },
+            { id: 235, name: "Diameter of Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/diameter-of-binary-tree/" },
+            { id: 236, name: "Balanced Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/balanced-binary-tree/" },
+            { id: 237, name: "Minimum Depth Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-depth-of-binary-tree/" },
+            { id: 238, name: "Path Sum", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/path-sum/" },
+            { id: 239, name: "Path Sum II", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/path-sum-ii/" },
+            { id: 240, name: "Path Sum III", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/path-sum-iii/" },
+            { id: 241, name: "Binary Tree Zigzag", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" },
+            { id: 242, name: "Flatten Binary Tree", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/" },
+            { id: 243, name: "Populating Next Right Pointers", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/populating-next-right-pointers-in-each-node/" },
+            { id: 244, name: "Sum Root to Leaf Numbers", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sum-root-to-leaf-numbers/" },
+            { id: 245, name: "Binary Tree Cameras", topic: "Trees", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-cameras/" },
+            { id: 246, name: "Recover BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/recover-binary-search-tree/" },
+            { id: 247, name: "Unique BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/unique-binary-search-trees/" },
+            { id: 248, name: "Unique BST II", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/unique-binary-search-trees-ii/" },
+            { id: 249, name: "Convert Sorted Array to BST", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/" },
+            { id: 250, name: "Convert Sorted List to BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/" },
+            { id: 251, name: "Binary Tree Vertical Order", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-vertical-order-traversal/" },
+            { id: 252, name: "Vertical Order Traversal", topic: "Trees", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/" },
+            { id: 253, name: "Binary Tree Tilt", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-tilt/" },
+            { id: 254, name: "Find Duplicate Subtrees", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-duplicate-subtrees/" },
+            { id: 255, name: "Most Frequent Subtree Sum", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/most-frequent-subtree-sum/" },
+            { id: 256, name: "Binary Tree Pruning", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-pruning/" },
+            { id: 257, name: "Delete Nodes and Return Forest", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/delete-nodes-and-return-forest/" },
+            { id: 258, name: "Complete Binary Tree Inserter", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/complete-binary-tree-inserter/" },
+            { id: 259, name: "Flip Equivalent Binary Trees", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/flip-equivalent-binary-trees/" },
+            { id: 260, name: "Cousins in Binary Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/cousins-in-binary-tree/" },
+            { id: 261, name: "All Nodes Distance K", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/" },
+            { id: 262, name: "Distribute Coins in Tree", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/distribute-coins-in-binary-tree/" },
+            { id: 263, name: "Maximum Width of Tree", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-width-of-binary-tree/" },
+            { id: 264, name: "Construct from Postorder Inorder", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/" },
+            { id: 265, name: "Construct from Preorder Postorder", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/" },
+            { id: 266, name: "BST to Greater Tree", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/convert-bst-to-greater-tree/" },
+            { id: 267, name: "Trim a BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/trim-a-binary-search-tree/" },
+            { id: 268, name: "Delete Node in BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/delete-node-in-a-bst/" },
+            { id: 269, name: "Insert into BST", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/insert-into-a-binary-search-tree/" },
+            { id: 270, name: "Range Sum of BST", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/range-sum-of-bst/" },
+            { id: 271, name: "Two Sum IV BST", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/" },
+            { id: 272, name: "Minimum Absolute Diff in BST", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-absolute-difference-in-bst/" },
+            { id: 273, name: "Increasing Order Search Tree", topic: "Trees", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/increasing-order-search-tree/" },
+            { id: 274, name: "Lowest Common Ancestor", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" },
+            { id: 275, name: "LCA of Deepest Leaves", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/" },
+            { id: 276, name: "House Robber III", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/house-robber-iii/" },
+            { id: 277, name: "Binary Tree Coloring", topic: "Trees", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/binary-tree-coloring-game/" },
+            { id: 278, name: "Sum of Distances in Tree", topic: "Trees", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/sum-of-distances-in-tree/" },
+            { id: 279, name: "Height of Binary Tree", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/height-of-binary-tree/" },
+            { id: 280, name: "Level Order Traversal", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/level-order-traversal/" },
+            { id: 281, name: "Top View of Tree", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/" },
+            { id: 282, name: "Bottom View of Tree", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/" },
+            { id: 283, name: "Left View of Tree", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/" },
+            { id: 284, name: "Right View of Tree", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/right-view-of-binary-tree/" },
+            { id: 285, name: "Boundary Traversal", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/" },
+            { id: 286, name: "Diagonal Traversal", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/" },
+            { id: 287, name: "Mirror Tree", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/mirror-tree/" },
+            { id: 288, name: "Children Sum Property", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/children-sum-parent/" },
+            { id: 289, name: "Check for Balanced Tree", topic: "Trees", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/check-for-balanced-tree/" },
+            { id: 290, name: "Sum Tree", topic: "Trees", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/sum-tree/" },
+
+            // Graphs (60 problems)
+            { id: 291, name: "Number of Islands", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-islands/" },
+            { id: 292, name: "Clone Graph", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/clone-graph/" },
+            { id: 293, name: "Max Area of Island", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/max-area-of-island/" },
+            { id: 294, name: "Pacific Atlantic Water Flow", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/pacific-atlantic-water-flow/" },
+            { id: 295, name: "Surrounded Regions", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/surrounded-regions/" },
+            { id: 296, name: "Course Schedule", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/course-schedule/" },
+            { id: 297, name: "Course Schedule II", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/course-schedule-ii/" },
+            { id: 298, name: "Graph Valid Tree", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/graph-valid-tree/" },
+            { id: 299, name: "Number of Connected Components", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/" },
+            { id: 300, name: "Alien Dictionary", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/alien-dictionary/" },
+            { id: 301, name: "Word Ladder", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/word-ladder/" },
+            { id: 302, name: "Word Ladder II", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/word-ladder-ii/" },
+            { id: 303, name: "Minimum Height Trees", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-height-trees/" },
+            { id: 304, name: "Network Delay Time", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/network-delay-time/" },
+            { id: 305, name: "Cheapest Flights Within K Stops", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/cheapest-flights-within-k-stops/" },
+            { id: 306, name: "Is Graph Bipartite", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/is-graph-bipartite/" },
+            { id: 307, name: "Possible Bipartition", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/possible-bipartition/" },
+            { id: 308, name: "All Paths from Source to Target", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/all-paths-from-source-to-target/" },
+            { id: 309, name: "Find Eventual Safe States", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-eventual-safe-states/" },
+            { id: 310, name: "Redundant Connection", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/redundant-connection/" },
+            { id: 311, name: "Redundant Connection II", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/redundant-connection-ii/" },
+            { id: 312, name: "Critical Connections", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/critical-connections-in-a-network/" },
+            { id: 313, name: "Accounts Merge", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/accounts-merge/" },
+            { id: 314, name: "Evaluate Division", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/evaluate-division/" },
+            { id: 315, name: "Reconstruct Itinerary", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/reconstruct-itinerary/" },
+            { id: 316, name: "Bus Routes", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/bus-routes/" },
+            { id: 317, name: "Shortest Path in Binary Matrix", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/shortest-path-in-binary-matrix/" },
+            { id: 318, name: "Shortest Path with Alternating", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/shortest-path-with-alternating-colors/" },
+            { id: 319, name: "Path with Maximum Probability", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/path-with-maximum-probability/" },
+            { id: 320, name: "Minimum Cost to Connect All Points", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/min-cost-to-connect-all-points/" },
+            { id: 321, name: "Swim in Rising Water", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/swim-in-rising-water/" },
+            { id: 322, name: "Number of Provinces", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-provinces/" },
+            { id: 323, name: "Keys and Rooms", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/keys-and-rooms/" },
+            { id: 324, name: "Time Needed to Inform", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/time-needed-to-inform-all-employees/" },
+            { id: 325, name: "Reorder Routes", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/" },
+            { id: 326, name: "Loud and Rich", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/loud-and-rich/" },
+            { id: 327, name: "Find the Town Judge", topic: "Graphs", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/find-the-town-judge/" },
+            { id: 328, name: "Minimum Number of Vertices", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/" },
+            { id: 329, name: "Longest Increasing Path", topic: "Graphs", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" },
+            { id: 330, name: "Shortest Bridge", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/shortest-bridge/" },
+            { id: 331, name: "As Far as Land as Possible", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/as-far-from-land-as-possible/" },
+            { id: 332, name: "Number of Closed Islands", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-closed-islands/" },
+            { id: 333, name: "Number of Enclaves", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-enclaves/" },
+            { id: 334, name: "Color Border", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/coloring-a-border/" },
+            { id: 335, name: "Satisfiability of Equality", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/satisfiability-of-equality-equations/" },
+            { id: 336, name: "Most Stones Removed", topic: "Graphs", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/" },
+            { id: 337, name: "BFS of Graph", topic: "Graphs", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/" },
+            { id: 338, name: "DFS of Graph", topic: "Graphs", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/" },
+            { id: 339, name: "Detect Cycle in Undirected", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/" },
+            { id: 340, name: "Detect Cycle in Directed", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/" },
+            { id: 341, name: "Topological Sort", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/topological-sort/" },
+            { id: 342, name: "Shortest Path in DAG", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/shortest-path-in-dag/" },
+            { id: 343, name: "Dijkstra Algorithm", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/" },
+            { id: 344, name: "Bellman Ford", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/" },
+            { id: 345, name: "Floyd Warshall", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/floyd-warshall/" },
+            { id: 346, name: "Minimum Spanning Tree", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/minimum-spanning-tree/" },
+            { id: 347, name: "Kruskal's Algorithm", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/kruskals-algorithm/" },
+            { id: 348, name: "Prim's Algorithm", topic: "Graphs", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/prims-algorithm/" },
+            { id: 349, name: "Strongly Connected Components", topic: "Graphs", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/" },
+            { id: 350, name: "Bridges in Graph", topic: "Graphs", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/bridge-edge-in-graph/" },
+
+            // Dynamic Programming (80 problems)
+            { id: 351, name: "Climbing Stairs", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/climbing-stairs/" },
+            { id: 352, name: "House Robber", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/house-robber/" },
+            { id: 353, name: "House Robber II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/house-robber-ii/" },
+            { id: 354, name: "Longest Palindromic Substring", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-palindromic-substring/" },
+            { id: 355, name: "Palindromic Substrings", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/palindromic-substrings/" },
+            { id: 356, name: "Decode Ways", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/decode-ways/" },
+            { id: 357, name: "Coin Change", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/coin-change/" },
+            { id: 358, name: "Coin Change II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/coin-change-ii/" },
+            { id: 359, name: "Maximum Product Subarray", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-product-subarray/" },
+            { id: 360, name: "Word Break", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/word-break/" },
+            { id: 361, name: "Longest Increasing Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-increasing-subsequence/" },
+            { id: 362, name: "Partition Equal Subset Sum", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-equal-subset-sum/" },
+            { id: 363, name: "Unique Paths", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/unique-paths/" },
+            { id: 364, name: "Unique Paths II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/unique-paths-ii/" },
+            { id: 365, name: "Jump Game", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game/" },
+            { id: 366, name: "Jump Game II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game-ii/" },
+            { id: 367, name: "Longest Common Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-common-subsequence/" },
+            { id: 368, name: "Edit Distance", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/edit-distance/" },
+            { id: 369, name: "Distinct Subsequences", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/distinct-subsequences/" },
+            { id: 370, name: "Min Cost Climbing Stairs", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/min-cost-climbing-stairs/" },
+            { id: 371, name: "Minimum Path Sum", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-path-sum/" },
+            { id: 372, name: "Triangle", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/triangle/" },
+            { id: 373, name: "Maximum Square", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximal-square/" },
+            { id: 374, name: "Maximal Rectangle", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximal-rectangle/" },
+            { id: 375, name: "Best Time to Buy Sell Stock", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+            { id: 376, name: "Best Time to Buy Sell II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" },
+            { id: 377, name: "Best Time to Buy Sell III", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" },
+            { id: 378, name: "Best Time to Buy Sell IV", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/" },
+            { id: 379, name: "Best Time with Cooldown", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/" },
+            { id: 380, name: "Best Time with Fee", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/" },
+            { id: 381, name: "Target Sum", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/target-sum/" },
+            { id: 382, name: "Ones and Zeroes", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/ones-and-zeroes/" },
+            { id: 383, name: "Last Stone Weight II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/last-stone-weight-ii/" },
+            { id: 384, name: "Arithmetic Slices", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/arithmetic-slices/" },
+            { id: 385, name: "Arithmetic Slices II", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/arithmetic-slices-ii-subsequence/" },
+            { id: 386, name: "Wiggle Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/wiggle-subsequence/" },
+            { id: 387, name: "Longest Arithmetic Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/longest-arithmetic-subsequence/" },
+            { id: 388, name: "Russian Doll Envelopes", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/russian-doll-envelopes/" },
+            { id: 389, name: "Delete and Earn", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/delete-and-earn/" },
+            { id: 390, name: "Count Numbers with Unique Digits", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-numbers-with-unique-digits/" },
+            { id: 391, name: "Decode Ways II", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/decode-ways-ii/" },
+            { id: 392, name: "Knight Dialer", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/knight-dialer/" },
+            { id: 393, name: "Minimum ASCII Delete Sum", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/" },
+            { id: 394, name: "Minimum Swaps to Make Increasing", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" },
+            { id: 395, name: "Champagne Tower", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/champagne-tower/" },
+            { id: 396, name: "Domino and Tromino Tiling", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/domino-and-tromino-tiling/" },
+            { id: 397, name: "Number of Dice Rolls", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/" },
+            { id: 398, name: "Pizza with 3n Slices", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/pizza-with-3n-slices/" },
+            { id: 399, name: "Stone Game", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/stone-game/" },
+            { id: 400, name: "Stone Game II", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/stone-game-ii/" },
+            { id: 401, name: "Stone Game III", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/stone-game-iii/" },
+            { id: 402, name: "Stone Game IV", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/stone-game-iv/" },
+            { id: 403, name: "Predict the Winner", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/predict-the-winner/" },
+            { id: 404, name: "Can I Win", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/can-i-win/" },
+            { id: 405, name: "Partition to K Equal Sum", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/" },
+            { id: 406, name: "Wildcard Matching", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/wildcard-matching/" },
+            { id: 407, name: "Regular Expression Matching", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/regular-expression-matching/" },
+            { id: 408, name: "Interleaving String", topic: "Dynamic Programming", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/interleaving-string/" },
+            { id: 409, name: "Scramble String", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/scramble-string/" },
+            { id: 410, name: "Minimum Insertion Steps", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/" },
+            { id: 411, name: "Minimum Cost to Merge Stones", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-cost-to-merge-stones/" },
+            { id: 412, name: "Burst Balloons", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/burst-balloons/" },
+            { id: 413, name: "Remove Boxes", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/remove-boxes/" },
+            { id: 414, name: "Strange Printer", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/strange-printer/" },
+            { id: 415, name: "Minimum Window Subsequence", topic: "Dynamic Programming", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-window-subsequence/" },
+            { id: 416, name: "Fibonacci Number", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/fibonacci-number/" },
+            { id: 417, name: "N-th Tribonacci Number", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/n-th-tribonacci-number/" },
+            { id: 418, name: "Pascal's Triangle", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/pascals-triangle/" },
+            { id: 419, name: "Pascal's Triangle II", topic: "Dynamic Programming", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/pascals-triangle-ii/" },
+            { id: 420, name: "0-1 Knapsack", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/0-1-knapsack-problem/" },
+            { id: 421, name: "Unbounded Knapsack", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items/" },
+            { id: 422, name: "Subset Sum Problem", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/subset-sum-problem/" },
+            { id: 423, name: "Rod Cutting", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/rod-cutting/" },
+            { id: 424, name: "Egg Dropping Puzzle", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/egg-dropping-puzzle/" },
+            { id: 425, name: "Matrix Chain Multiplication", topic: "Dynamic Programming", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/matrix-chain-multiplication/" },
+            { id: 426, name: "Longest Palindromic Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/longest-palindromic-subsequence/" },
+            { id: 427, name: "Longest Repeating Subsequence", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/longest-repeating-subsequence/" },
+            { id: 428, name: "Box Stacking", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/box-stacking/" },
+            { id: 429, name: "Maximum Sum Increasing Subseq", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence/" },
+            { id: 430, name: "Minimum Number of Jumps", topic: "Dynamic Programming", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/minimum-number-of-jumps/" },
+
+            // Binary Search (40 problems)
+            { id: 431, name: "Binary Search", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/binary-search/" },
+            { id: 432, name: "Search Insert Position", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/search-insert-position/" },
+            { id: 433, name: "First Bad Version", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/first-bad-version/" },
+            { id: 434, name: "Search in Rotated Sorted Array", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/search-in-rotated-sorted-array/" },
+            { id: 435, name: "Search in Rotated II", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/" },
+            { id: 436, name: "Find Minimum in Rotated", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" },
+            { id: 437, name: "Find Minimum in Rotated II", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/" },
+            { id: 438, name: "Find Peak Element", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-peak-element/" },
+            { id: 439, name: "Search a 2D Matrix", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/search-a-2d-matrix/" },
+            { id: 440, name: "Search a 2D Matrix II", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/search-a-2d-matrix-ii/" },
+            { id: 441, name: "Find First and Last Position", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/" },
+            { id: 442, name: "Sqrt(x)", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/sqrtx/" },
+            { id: 443, name: "Valid Perfect Square", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-perfect-square/" },
+            { id: 444, name: "Guess Number Higher or Lower", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/guess-number-higher-or-lower/" },
+            { id: 445, name: "Arranging Coins", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/arranging-coins/" },
+            { id: 446, name: "Koko Eating Bananas", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/koko-eating-bananas/" },
+            { id: 447, name: "Minimum Capacity to Ship", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/" },
+            { id: 448, name: "Split Array Largest Sum", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/split-array-largest-sum/" },
+            { id: 449, name: "Median of Two Sorted Arrays", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/median-of-two-sorted-arrays/" },
+            { id: 450, name: "Find K Closest Elements", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-k-closest-elements/" },
+            { id: 451, name: "Kth Smallest in Sorted Matrix", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/" },
+            { id: 452, name: "Find K-th Smallest Pair", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/find-k-th-smallest-pair-distance/" },
+            { id: 453, name: "Ugly Number III", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/ugly-number-iii/" },
+            { id: 454, name: "Maximum Value at Index", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/" },
+            { id: 455, name: "Minimum Limit of Balls", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/" },
+            { id: 456, name: "Magnetic Force Between Balls", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/magnetic-force-between-two-balls/" },
+            { id: 457, name: "Minimum Time to Complete Trips", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-time-to-complete-trips/" },
+            { id: 458, name: "Minimized Maximum Products", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/" },
+            { id: 459, name: "Find Positive Integer", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/find-positive-integer-solution-for-a-given-equation/" },
+            { id: 460, name: "Max Number of Removable Chars", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-number-of-removable-characters/" },
+            { id: 461, name: "Find Right Interval", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-right-interval/" },
+            { id: 462, name: "Count Negative Numbers", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/" },
+            { id: 463, name: "Special Array With X Elements", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/" },
+            { id: 464, name: "Maximum Count", topic: "Binary Search", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-count-of-positive-integer-and-negative-integer/" },
+            { id: 465, name: "Number of Flowers in Bloom", topic: "Binary Search", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-flowers-in-full-bloom/" },
+            { id: 466, name: "Count Complete Tree Nodes", topic: "Binary Search", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-complete-tree-nodes/" },
+            { id: 467, name: "Allocate Minimum Pages", topic: "Binary Search", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages/" },
+            { id: 468, name: "Aggressive Cows", topic: "Binary Search", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/aggressive-cows/" },
+            { id: 469, name: "Square Root", topic: "Binary Search", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/square-root/" },
+            { id: 470, name: "Nth Root of M", topic: "Binary Search", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/find-nth-root-of-m/" },
+
+            // Heaps (40 problems)
+            { id: 471, name: "Kth Largest Element", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/kth-largest-element-in-an-array/" },
+            { id: 472, name: "Top K Frequent Elements", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/top-k-frequent-elements/" },
+            { id: 473, name: "K Closest Points to Origin", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/k-closest-points-to-origin/" },
+            { id: 474, name: "Kth Smallest Element in BST", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/" },
+            { id: 475, name: "Find Median from Data Stream", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/find-median-from-data-stream/" },
+            { id: 476, name: "Sliding Window Median", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/sliding-window-median/" },
+            { id: 477, name: "Task Scheduler", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/task-scheduler/" },
+            { id: 478, name: "Reorganize String", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reorganize-string/" },
+            { id: 479, name: "Rearrange String k Distance", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/rearrange-string-k-distance-apart/" },
+            { id: 480, name: "Meeting Rooms II", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/meeting-rooms-ii/" },
+            { id: 481, name: "Minimum Cost to Hire K", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-cost-to-hire-k-workers/" },
+            { id: 482, name: "IPO", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/ipo/" },
+            { id: 483, name: "Maximum Performance of Team", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-performance-of-a-team/" },
+            { id: 484, name: "Find K Pairs Smallest Sums", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/" },
+            { id: 485, name: "Merge k Sorted Lists", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/merge-k-sorted-lists/" },
+            { id: 486, name: "Smallest Range K Lists", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/" },
+            { id: 487, name: "Last Stone Weight", topic: "Heaps", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/last-stone-weight/" },
+            { id: 488, name: "Kth Largest in Stream", topic: "Heaps", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/kth-largest-element-in-a-stream/" },
+            { id: 489, name: "Minimum Cost to Connect Sticks", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-cost-to-connect-sticks/" },
+            { id: 490, name: "Furthest Building You Can Reach", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/furthest-building-you-can-reach/" },
+            { id: 491, name: "Single Threaded CPU", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/single-threaded-cpu/" },
+            { id: 492, name: "Maximum Subsequence Score", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-subsequence-score/" },
+            { id: 493, name: "Relative Ranks", topic: "Heaps", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/relative-ranks/" },
+            { id: 494, name: "Sort Characters by Frequency", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-characters-by-frequency/" },
+            { id: 495, name: "Top K Frequent Words", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/top-k-frequent-words/" },
+            { id: 496, name: "Kth Smallest Prime Fraction", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/k-th-smallest-prime-fraction/" },
+            { id: 497, name: "Smallest Number in Infinite Set", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/smallest-number-in-infinite-set/" },
+            { id: 498, name: "Maximum Average Pass Ratio", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-average-pass-ratio/" },
+            { id: 499, name: "Seat Reservation Manager", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/seat-reservation-manager/" },
+            { id: 500, name: "Process Tasks Using Servers", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/process-tasks-using-servers/" },
+            { id: 501, name: "Maximum Product After K", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-product-after-k-increments/" },
+            { id: 502, name: "Total Cost to Hire K Workers", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/total-cost-to-hire-k-workers/" },
+            { id: 503, name: "Maximal Score After K", topic: "Heaps", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximal-score-after-applying-k-operations/" },
+            { id: 504, name: "Minimum Operations Halve Array", topic: "Heaps", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-operations-to-halve-array-sum/" },
+            { id: 505, name: "Kth Largest in Array", topic: "Heaps", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/kth-largest-element-in-an-array/" },
+            { id: 506, name: "Kth Smallest Element", topic: "Heaps", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/kth-smallest-element/" },
+            { id: 507, name: "Nearly Sorted Array", topic: "Heaps", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/nearly-sorted-algorithm/" },
+            { id: 508, name: "Connect Ropes Minimum Cost", topic: "Heaps", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes/" },
+            { id: 509, name: "K Largest Elements", topic: "Heaps", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/k-largest-elements/" },
+            { id: 510, name: "Merge K Sorted Arrays", topic: "Heaps", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/merge-k-sorted-arrays/" },
+
+            // Greedy (40 problems)
+            { id: 511, name: "Maximum Subarray", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-subarray/" },
+            { id: 512, name: "Jump Game", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game/" },
+            { id: 513, name: "Jump Game II", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/jump-game-ii/" },
+            { id: 514, name: "Gas Station", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/gas-station/" },
+            { id: 515, name: "Container With Most Water", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/container-with-most-water/" },
+            { id: 516, name: "Minimum Arrows to Burst", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/" },
+            { id: 517, name: "Non-overlapping Intervals", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/non-overlapping-intervals/" },
+            { id: 518, name: "Meeting Rooms", topic: "Greedy", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/meeting-rooms/" },
+            { id: 519, name: "Meeting Rooms II", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/meeting-rooms-ii/" },
+            { id: 520, name: "Merge Intervals", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/merge-intervals/" },
+            { id: 521, name: "Insert Interval", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/insert-interval/" },
+            { id: 522, name: "Partition Labels", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-labels/" },
+            { id: 523, name: "Queue Reconstruction by Height", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/queue-reconstruction-by-height/" },
+            { id: 524, name: "Task Scheduler", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/task-scheduler/" },
+            { id: 525, name: "Boats to Save People", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/boats-to-save-people/" },
+            { id: 526, name: "Two City Scheduling", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/two-city-scheduling/" },
+            { id: 527, name: "Candy", topic: "Greedy", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/candy/" },
+            { id: 528, name: "Assign Cookies", topic: "Greedy", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/assign-cookies/" },
+            { id: 529, name: "Lemonade Change", topic: "Greedy", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/lemonade-change/" },
+            { id: 530, name: "Best Time to Buy Sell II", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" },
+            { id: 531, name: "Maximum Swap", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-swap/" },
+            { id: 532, name: "Maximize Sum After K Negations", topic: "Greedy", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/" },
+            { id: 533, name: "Minimum Deletions Make Valid", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/" },
+            { id: 534, name: "Reduce Array Size to Half", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reduce-array-size-to-the-half/" },
+            { id: 535, name: "Maximum Ice Cream Bars", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-ice-cream-bars/" },
+            { id: 536, name: "Maximum Units on Truck", topic: "Greedy", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-units-on-a-truck/" },
+            { id: 537, name: "Minimum Number of Refueling", topic: "Greedy", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-number-of-refueling-stops/" },
+            { id: 538, name: "Maximum Profit Job Scheduling", topic: "Greedy", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-profit-in-job-scheduling/" },
+            { id: 539, name: "Remove K Digits", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/remove-k-digits/" },
+            { id: 540, name: "Create Maximum Number", topic: "Greedy", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/create-maximum-number/" },
+            { id: 541, name: "Split Array into Consecutive", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/split-array-into-consecutive-subsequences/" },
+            { id: 542, name: "Hand of Straights", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/hand-of-straights/" },
+            { id: 543, name: "Minimum Cost Tree From Leaf", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/" },
+            { id: 544, name: "Advantage Shuffle", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/advantage-shuffle/" },
+            { id: 545, name: "Bag of Tokens", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/bag-of-tokens/" },
+            { id: 546, name: "Wiggle Subsequence", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/wiggle-subsequence/" },
+            { id: 547, name: "Smallest String With Swaps", topic: "Greedy", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/smallest-string-with-swaps/" },
+            { id: 548, name: "N Meetings in One Room", topic: "Greedy", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/n-meetings-in-one-room/" },
+            { id: 549, name: "Job Sequencing Problem", topic: "Greedy", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/job-sequencing-problem/" },
+            { id: 550, name: "Fractional Knapsack", topic: "Greedy", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/fractional-knapsack/" },
+
+            // Backtracking (50 problems)
+            { id: 551, name: "Subsets", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/subsets/" },
+            { id: 552, name: "Subsets II", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/subsets-ii/" },
+            { id: 553, name: "Permutations", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/permutations/" },
+            { id: 554, name: "Permutations II", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/permutations-ii/" },
+            { id: 555, name: "Combination Sum", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/combination-sum/" },
+            { id: 556, name: "Combination Sum II", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/combination-sum-ii/" },
+            { id: 557, name: "Combination Sum III", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/combination-sum-iii/" },
+            { id: 558, name: "Palindrome Partitioning", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/palindrome-partitioning/" },
+            { id: 559, name: "Letter Combinations Phone", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/" },
+            { id: 560, name: "Generate Parentheses", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/generate-parentheses/" },
+            { id: 561, name: "Word Search", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/word-search/" },
+            { id: 562, name: "Word Search II", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/word-search-ii/" },
+            { id: 563, name: "N-Queens", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/n-queens/" },
+            { id: 564, name: "N-Queens II", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/n-queens-ii/" },
+            { id: 565, name: "Sudoku Solver", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/sudoku-solver/" },
+            { id: 566, name: "Restore IP Addresses", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/restore-ip-addresses/" },
+            { id: 567, name: "Letter Case Permutation", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/letter-case-permutation/" },
+            { id: 568, name: "Beautiful Arrangement", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/beautiful-arrangement/" },
+            { id: 569, name: "Increasing Subsequences", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/non-decreasing-subsequences/" },
+            { id: 570, name: "Gray Code", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/gray-code/" },
+            { id: 571, name: "Additive Number", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/additive-number/" },
+            { id: 572, name: "Split String Into Fibonacci", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/split-array-into-fibonacci-sequence/" },
+            { id: 573, name: "Partition K Equal Sum", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/" },
+            { id: 574, name: "Matchsticks to Square", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/matchsticks-to-square/" },
+            { id: 575, name: "Fair Distribution of Cookies", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/fair-distribution-of-cookies/" },
+            { id: 576, name: "Optimal Account Balancing", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/optimal-account-balancing/" },
+            { id: 577, name: "Word Pattern II", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/word-pattern-ii/" },
+            { id: 578, name: "Strobogrammatic Number II", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/strobogrammatic-number-ii/" },
+            { id: 579, name: "Android Unlock Patterns", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/android-unlock-patterns/" },
+            { id: 580, name: "Expression Add Operators", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/expression-add-operators/" },
+            { id: 581, name: "Construct Target With Multiple", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/construct-target-array-with-multiple-sums/" },
+            { id: 582, name: "Maximum Length of Concat String", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/" },
+            { id: 583, name: "Sequential Digits", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sequential-digits/" },
+            { id: 584, name: "Iterator for Combination", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/iterator-for-combination/" },
+            { id: 585, name: "Combinations", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/combinations/" },
+            { id: 586, name: "Factor Combinations", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/factor-combinations/" },
+            { id: 587, name: "Count Numbers with Unique", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-numbers-with-unique-digits/" },
+            { id: 588, name: "Different Ways to Add Parentheses", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/different-ways-to-add-parentheses/" },
+            { id: 589, name: "Concatenated Words", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/concatenated-words/" },
+            { id: 590, name: "Generalized Abbreviation", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/generalized-abbreviation/" },
+            { id: 591, name: "Find Unique Binary String", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-unique-binary-string/" },
+            { id: 592, name: "Smallest Sufficient Team", topic: "Backtracking", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/smallest-sufficient-team/" },
+            { id: 593, name: "Rat in a Maze", topic: "Backtracking", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/" },
+            { id: 594, name: "M-Coloring Problem", topic: "Backtracking", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/m-coloring-problem/" },
+            { id: 595, name: "Knight Tour Problem", topic: "Backtracking", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/knight-tour-problem/" },
+            { id: 596, name: "Hamiltonian Path", topic: "Backtracking", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/hamiltonian-path/" },
+            { id: 597, name: "Word Boggle", topic: "Backtracking", difficulty: "Hard", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/word-boggle/" },
+            { id: 598, name: "Largest Number in K Swaps", topic: "Backtracking", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/largest-number-in-k-swaps/" },
+            { id: 599, name: "Path with Maximum Gold", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/path-with-maximum-gold/" },
+            { id: 600, name: "All Paths From Source Lead", topic: "Backtracking", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/all-paths-from-source-lead-to-destination/" },
+
+            // Bit Manipulation (50 problems)
+            { id: 601, name: "Single Number", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/single-number/" },
+            { id: 602, name: "Single Number II", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/single-number-ii/" },
+            { id: 603, name: "Single Number III", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/single-number-iii/" },
+            { id: 604, name: "Number of 1 Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-1-bits/" },
+            { id: 605, name: "Counting Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/counting-bits/" },
+            { id: 606, name: "Reverse Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-bits/" },
+            { id: 607, name: "Missing Number", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/missing-number/" },
+            { id: 608, name: "Sum of Two Integers", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sum-of-two-integers/" },
+            { id: 609, name: "Power of Two", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/power-of-two/" },
+            { id: 610, name: "Power of Four", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/power-of-four/" },
+            { id: 611, name: "Bitwise AND of Range", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/bitwise-and-of-numbers-range/" },
+            { id: 612, name: "Maximum XOR of Two Numbers", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/" },
+            { id: 613, name: "Maximum Product of Word Lengths", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-product-of-word-lengths/" },
+            { id: 614, name: "UTF-8 Validation", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/utf-8-validation/" },
+            { id: 615, name: "Decode XORed Array", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/decode-xored-array/" },
+            { id: 616, name: "XOR Operation in Array", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/xor-operation-in-an-array/" },
+            { id: 617, name: "Find XOR Sum of All Pairs", topic: "Bit Manipulation", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/find-xor-sum-of-all-pairs-bitwise-and/" },
+            { id: 618, name: "Complement of Base 10", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/complement-of-base-10-integer/" },
+            { id: 619, name: "Binary Number with Alternating", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/binary-number-with-alternating-bits/" },
+            { id: 620, name: "Prime Number of Set Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/" },
+            { id: 621, name: "Binary Watch", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/binary-watch/" },
+            { id: 622, name: "Hamming Distance", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/hamming-distance/" },
+            { id: 623, name: "Total Hamming Distance", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/total-hamming-distance/" },
+            { id: 624, name: "Convert Number to Hexadecimal", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/convert-a-number-to-hexadecimal/" },
+            { id: 625, name: "Number Complement", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/number-complement/" },
+            { id: 626, name: "Divide Two Integers", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/divide-two-integers/" },
+            { id: 627, name: "Gray Code", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/gray-code/" },
+            { id: 628, name: "Majority Element", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/majority-element/" },
+            { id: 629, name: "Repeated DNA Sequences", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/repeated-dna-sequences/" },
+            { id: 630, name: "Integer Replacement", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/integer-replacement/" },
+            { id: 631, name: "Find Duplicate Number", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/find-the-duplicate-number/" },
+            { id: 632, name: "Minimum Flips to OR", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c/" },
+            { id: 633, name: "Number of Steps to Zero", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/" },
+            { id: 634, name: "Sort Integers by 1 Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/" },
+            { id: 635, name: "Check If Number Has Equal", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/check-if-a-number-is-majority-element-in-a-sorted-array/" },
+            { id: 636, name: "Find Winner on Tic Tac Toe", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/" },
+            { id: 637, name: "Minimum One Bit Operations", topic: "Bit Manipulation", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/minimum-one-bit-operations-to-make-integers-zero/" },
+            { id: 638, name: "Concatenation of Consecutive", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/" },
+            { id: 639, name: "Check If All 1s At Least K", topic: "Bit Manipulation", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/check-if-all-1s-are-at-least-length-k-places-away/" },
+            { id: 640, name: "Count Triplets with XOR", topic: "Bit Manipulation", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/" },
+            { id: 641, name: "Bit Position", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/find-position-of-set-bit/" },
+            { id: 642, name: "Rightmost Different Bit", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/rightmost-different-bit/" },
+            { id: 643, name: "Check Whether K-th Bit Set", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/check-whether-k-th-bit-is-set-or-not/" },
+            { id: 644, name: "Toggle Bits Given Range", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/toggle-bits-given-range/" },
+            { id: 645, name: "Set Kth Bit", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/set-kth-bit/" },
+            { id: 646, name: "Power Set", topic: "Bit Manipulation", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/power-set/" },
+            { id: 647, name: "Bit Difference", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/bit-difference/" },
+            { id: 648, name: "Swap All Odd Even Bits", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/swap-all-odd-and-even-bits/" },
+            { id: 649, name: "Count Total Set Bits", topic: "Bit Manipulation", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/count-total-set-bits/" },
+            { id: 650, name: "Longest Consecutive 1s", topic: "Bit Manipulation", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/longest-consecutive-1s/" },
+
+            // Sorting (30 problems)
+            { id: 651, name: "Sort Colors", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-colors/" },
+            { id: 652, name: "Merge Sorted Array", topic: "Sorting", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/merge-sorted-array/" },
+            { id: 653, name: "Kth Largest Element", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/kth-largest-element-in-an-array/" },
+            { id: 654, name: "Sort List", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-list/" },
+            { id: 655, name: "Insertion Sort List", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/insertion-sort-list/" },
+            { id: 656, name: "Largest Number", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/largest-number/" },
+            { id: 657, name: "Valid Anagram", topic: "Sorting", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/valid-anagram/" },
+            { id: 658, name: "Group Anagrams", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/group-anagrams/" },
+            { id: 659, name: "Sort Array By Parity", topic: "Sorting", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/sort-array-by-parity/" },
+            { id: 660, name: "Sort Array By Parity II", topic: "Sorting", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/sort-array-by-parity-ii/" },
+            { id: 661, name: "Reorder Data in Log Files", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/reorder-data-in-log-files/" },
+            { id: 662, name: "Custom Sort String", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/custom-sort-string/" },
+            { id: 663, name: "Sort Characters By Frequency", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-characters-by-frequency/" },
+            { id: 664, name: "Wiggle Sort", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/wiggle-sort/" },
+            { id: 665, name: "Wiggle Sort II", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/wiggle-sort-ii/" },
+            { id: 666, name: "Meeting Rooms", topic: "Sorting", difficulty: "Easy", platform: "LeetCode", link: "https://leetcode.com/problems/meeting-rooms/" },
+            { id: 667, name: "Meeting Rooms II", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/meeting-rooms-ii/" },
+            { id: 668, name: "H-Index", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/h-index/" },
+            { id: 669, name: "H-Index II", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/h-index-ii/" },
+            { id: 670, name: "Pancake Sorting", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/pancake-sorting/" },
+            { id: 671, name: "Sort Transformed Array", topic: "Sorting", difficulty: "Medium", platform: "LeetCode", link: "https://leetcode.com/problems/sort-transformed-array/" },
+            { id: 672, name: "Maximum Gap", topic: "Sorting", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/maximum-gap/" },
+            { id: 673, name: "Count of Smaller After Self", topic: "Sorting", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/count-of-smaller-numbers-after-self/" },
+            { id: 674, name: "Reverse Pairs", topic: "Sorting", difficulty: "Hard", platform: "LeetCode", link: "https://leetcode.com/problems/reverse-pairs/" },
+            { id: 675, name: "Merge Sort", topic: "Sorting", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/merge-sort/" },
+            { id: 676, name: "Quick Sort", topic: "Sorting", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/quick-sort/" },
+            { id: 677, name: "Heap Sort", topic: "Sorting", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/heap-sort/" },
+            { id: 678, name: "Count Inversions", topic: "Sorting", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/inversion-of-array/" },
+            { id: 679, name: "Counting Sort", topic: "Sorting", difficulty: "Easy", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/counting-sort/" },
+            { id: 680, name: "Radix Sort", topic: "Sorting", difficulty: "Medium", platform: "GFG", link: "https://www.geeksforgeeks.org/problems/radix-sort/" }
+    ];
+    let completedProblems = {};
+        let filteredProblems = problems;
+
+        function loadProgress() {
+            const saved = localStorage.getItem('dsaProgress');
+            if (saved) {
+                completedProblems = JSON.parse(saved);
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('dsaProgress', JSON.stringify(completedProblems));
+        }
+
+        function updateStats() {
+            const completed = Object.values(completedProblems).filter(v => v).length;
+            document.getElementById('completedCount').textContent = completed;
+            const percent = Math.round((completed / problems.length) * 100);
+            document.getElementById('progressPercent').textContent = percent + '%';
+        }
+
+        function toggleComplete(id) {
+            completedProblems[id] = !completedProblems[id];
+            saveProgress();
+            updateStats();
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredProblems.length === 0) {
+                tbody.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            tbody.innerHTML = filteredProblems.map(p => `
+                <tr class="${completedProblems[p.id] ? 'completed' : ''}">
+                    <td>
+                        <input type="checkbox" class="checkbox" 
+                            ${completedProblems[p.id] ? 'checked' : ''} 
+                            onchange="toggleComplete(${p.id})">
+                    </td>
+                    <td>${p.id}</td>
+                    <td><strong>${p.name}</strong></td>
+                    <td>${p.topic}</td>
+                    <td><span class="difficulty ${p.difficulty.toLowerCase()}">${p.difficulty}</span></td>
+                    <td><span class="platform">${p.platform}</span></td>
+                    <td><a href="${p.link}" target="_blank" class="link-btn">Solve →</a></td>
+                </tr>
+            `).join('');
+        }
+
+        function filterProblems() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const topic = document.getElementById('topicFilter').value;
+            const difficulty = document.getElementById('difficultyFilter').value;
+
+            filteredProblems = problems.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchesTopic = topic === 'All' || p.topic === topic;
+                const matchesDifficulty = difficulty === 'All' || p.difficulty === difficulty;
+                return matchesSearch && matchesTopic && matchesDifficulty;
+            });
+
+            renderTable();
+        }
+
+        function exportToCSV() {
+            let csv = 'ID,Problem Name,Topic,Difficulty,Platform,Link,Status\n';
+            problems.forEach(p => {
+                const status = completedProblems[p.id] ? 'Completed' : 'Pending';
+                csv += `${p.id},"${p.name}",${p.topic},${p.difficulty},${p.platform},${p.link},${status}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dsa_practice_sheet.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterProblems);
+        document.getElementById('topicFilter').addEventListener('change', filterProblems);
+        document.getElementById('difficultyFilter').addEventListener('change', filterProblems);
+
+        loadProgress();
+        updateStats();
+        renderTable();
+    </script>
+</body>
+</html>
